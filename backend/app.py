@@ -11,7 +11,7 @@ log.setLevel(logging.WARNING)
 
 
 def run_app():
-    static_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), 'frontend', 'dist'))
+    static_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'frontend', 'dist'))
     app = Flask(__name__, static_folder=static_folder, static_url_path='/static')
     storage = Storage()
 
