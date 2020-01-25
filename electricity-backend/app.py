@@ -25,15 +25,15 @@ def run_app():
 
     @app.route("/storage/street/<street_name>/latest", methods=["GET"])
     def get_street_latest_data(street_name):
-        raise NotImplementedError()
+        return jsonify(storage.get_street(street_name))
 
     @app.route("/storage/add_latest_date", methods=["POST"])
     def add_today():
-        raise NotImplementedError()
+        return jsonify(storage.add_today())
 
-    @app.route("/storage/street/<street_name>/house/<house>/set/<data_type>/<data_value>", methods=["PUT"])
-    def put_latest_house_data(street_name, house, data_type, data_value):
-        raise NotImplementedError()
+    @app.route("/storage/street/<street_name>/house/<house>/set/<date>/<data_type>/<data>", methods=["PUT"])
+    def update_data(street_name, house, date, data_type, data):
+        return jsonify(storage.update_data(street_name, house, date, data_type, data))
 
     @app.errorhandler(500)
     def internal_error(error):
