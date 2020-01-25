@@ -8,6 +8,13 @@ class AllowedDataTypes(enum.Enum):
     DAY = 'DAY'
     NIGHT = 'NIGHT'
 
+    @classmethod
+    def is_allowed(cls, string):
+        for item in AllowedDataTypes:
+            if item.value == string:
+                return True
+        return False
+
 
 def get_storage_filename():
     real_data_file = os.path.join(_DIR_NAME, 'data.json')
