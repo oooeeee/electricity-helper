@@ -1,6 +1,7 @@
 import os
 import json
 import enum
+import datetime
 _DIR_NAME = os.path.dirname(__file__)
 
 
@@ -46,6 +47,13 @@ class Storage:
         assert date in house_info, 'Unknown date'
         date_info = house_info[date]
         date_info[data_type] = data
+        self.save_storage()
+
+    def add_today(self):
+        today = datetime.datetime.now().strftime('%d.%m.%Y')
+        for street_info in self._data.values():
+            for house_info in street_info.values():
+                house_info.setdefault(today, {})
         self.save_storage()
 
     def save_storage(self):
