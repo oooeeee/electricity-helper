@@ -1,6 +1,7 @@
 import os
 import json
 import enum
+_DIR_NAME = os.path.dirname(__file__)
 
 
 class AllowedDataTypes(enum.Enum):
@@ -9,9 +10,8 @@ class AllowedDataTypes(enum.Enum):
 
 
 def get_storage_filename():
-    dir_name = os.path.dirname(__file__)
-    real_data_file = os.path.join(dir_name, 'data.json')
-    demo_data_file = os.path.join(dir_name, 'demo_data.json')
+    real_data_file = os.path.join(_DIR_NAME, 'data.json')
+    demo_data_file = os.path.join(_DIR_NAME, 'demo_data.json')
     return real_data_file if os.path.exists(real_data_file) else demo_data_file
 
 
