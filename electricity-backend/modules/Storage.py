@@ -23,9 +23,9 @@ def get_storage_filename():
 
 
 class Storage:
-    def __init__(self):
-        filename = get_storage_filename()
-        with open(filename, 'r') as file:
+    def __init__(self, filename=None):
+        self.filename = filename or get_storage_filename()
+        with open(self.filename, 'r', encoding='utf-8') as file:
             self._data = json.load(file)
 
     def get_street_names(self):
