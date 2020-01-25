@@ -32,13 +32,13 @@ class Storage:
         return list(self._data.keys())
 
     def get_street(self, street_name):
-        assert street_name in self._data
+        assert street_name in self._data, 'Unknown street name'
         return self._data[street_name]
 
     def get_house(self, street_name, house):
-        street = self.get_street(street_name)
-        assert house in street_name
-        return street[house]
+        street_info = self.get_street(street_name)
+        assert house in street_info, 'Unknown house number'
+        return street_info[house]
 
     def update_data(self, street_name, house, data_type, data):
         house = self.get_house(street_name, house)
