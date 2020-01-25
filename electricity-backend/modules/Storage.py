@@ -40,6 +40,14 @@ class Storage:
         assert house in street_info, 'Unknown house number'
         return street_info[house]
 
-    def update_data(self, street_name, house, data_type, data):
-        house = self.get_house(street_name, house)
-        raise NotImplementedError()
+    def update_data(self, street_name, house, date, data_type, data):
+        assert AllowedDataTypes.is_allowed(data_type), 'Not allowed data type'
+        house_info = self.get_house(street_name, house)
+        assert date in house_info, 'Unknown date'
+        date_info = house_info[date]
+        date_info[data_type] = data
+        self.save_storage()
+
+    def save_storage(self):
+        with open(self.filename, 'w', encoding='utf-8') as file:
+            json.dump(self._data, file, indent=4, ensure_ascii=False)
