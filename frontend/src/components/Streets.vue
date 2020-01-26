@@ -10,8 +10,8 @@
         <div class="table-cell tc-10"> Current street is {{this.street}} </div>
         <div class="table-cell tc-30"> There will be buttons </div>
       </div>
-      <div class="table-row" v-for="(house_info, house_index) in street_info" :key="house_index">
-        <div class="table-cell tc-20"> Current house {{house_index}}, info is {{house_info}} </div>
+      <div v-for="(house_info, house_index) in street_info" :key="house_index">
+        <HouseRow :house=house_index :house_info=house_info :street_name="this.street" />
       </div>
     </div>
     <div v-else>
@@ -22,9 +22,13 @@
 
 <script>
 import Bus from '../bus'
+import HouseRow from './HouseRow.vue'
 import { common_state_store } from '../shared'
 
 export default {
+  components: {
+    HouseRow
+  },
 
   data: () => ({
     common_store: common_state_store,

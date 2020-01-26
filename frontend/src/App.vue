@@ -198,6 +198,10 @@ export default {
   width: 60%;
 }
 
+.table-cell.tc-100 {
+  width: 100%;
+}
+
 .buttons {
   display: flex;
 }
