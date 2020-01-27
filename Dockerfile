@@ -17,4 +17,4 @@ ADD . /code
 COPY --from=node /root/workdir/dist /code/frontend/dist
 WORKDIR /code/backend
 ENV PYTHONPATH /code:/code/
-CMD python3.7 backend/app.py
+CMD python3.7 app.py

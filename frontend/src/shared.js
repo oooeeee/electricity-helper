@@ -1,4 +1,4 @@
-export const BASE_URL = (process.env.NODE_ENV == 'development') ? 'http://localhost:8080' : '';
+export const BASE_URL = (process.env.NODE_ENV == 'development') ? 'http://localhost:5000' : '';
 
 export const common_state_store = {
   state: {

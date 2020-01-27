@@ -87,4 +87,4 @@ if __name__ == '__main__':
 
         return resp
 
-    app.run(host="0.0.0.0", port=8080, threaded=True)
+    app.run(host="0.0.0.0", threaded=True)
