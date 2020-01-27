@@ -17,4 +17,4 @@ ADD . /code
 COPY --from=node /root/workdir/dist /code/frontend/dist
 WORKDIR /code/backend
 ENV PYTHONPATH /code:/code/
-CMD python3.7 app.py
+CMD gunicorn --preload --workers 1 --threads 1 --bind 0.0.0.0:5000 app:app
