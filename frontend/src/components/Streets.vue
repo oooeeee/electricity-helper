@@ -8,8 +8,8 @@
         <a v-for="(street, street_index) in streets" :key="street_index" class="dropdown-item" href="#" @click.prevent="requestStreet(street)"> {{street}}</a>
       </div>
     </div>
-    <div v-if="this.active_street">
-      <div v-for="(house_info, house_index) in street_info" :key="house_index" class="house">
+    <div v-if="this.active_street" class="houses">
+      <div v-for="(house_info, house_index) in street_info" :key="house_index">
         <House :house=house_index :house_info=house_info :street_name=active_street />
       </div>
     </div>
@@ -53,5 +53,6 @@ export default {
 .houses {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 </style>

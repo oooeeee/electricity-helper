@@ -1,9 +1,9 @@
 <template>
   <div>
-    <div class="table-row">
-      <div class="table-cell tc-10"> House {{this.house}} </div>
+    <div v-if="!edit_mode">
+      <button type="button" class="btn btn-primary" @click.prevent="edit_mode = !edit_mode">{{this.house}}</button>
     </div>
-    <div class="table-row" v-for="(date_info, date_index) in house_info" :key="date_index">
+    <div v-else class="table-row" v-for="(date_info, date_index) in house_info" :key="date_index">
       <div class="table-cell tc-10">
         <div class="labels">
           <span class="badge badge-info">{{ date_info.date }}</span>
@@ -38,6 +38,7 @@ export default {
 
   data: () => ({
     common_store: common_state_store,
+    edit_mode: false,
   }),
 
 }
