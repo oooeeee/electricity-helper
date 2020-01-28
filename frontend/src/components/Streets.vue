@@ -1,15 +1,13 @@
 <template>
   <div>
-    <ul class="nav nav-tabs">
-      <li class="nav-item" v-for="(street, street_index) in streets" :key="street_index">
-        <a
-          class="nav-link"
-          href="#"
-          @click.prevent="requestStreet(street)"
-          v-bind:class="{'active': (street == active_street)}"
-        > {{street}}  </a>
-      </li>
-    </ul>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{active_street?active_street:'Choose street'}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a v-for="(street, street_index) in streets" :key="street_index" class="dropdown-item" href="#" @click.prevent="requestStreet(street)"> {{street}}</a>
+      </div>
+    </div>
     <div v-if="this.active_street">
       <div class="table-row">
         <div class="table-cell tc-10"> Current street is {{this.active_street}} </div>
