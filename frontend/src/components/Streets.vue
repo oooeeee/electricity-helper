@@ -9,28 +9,21 @@
       </div>
     </div>
     <div v-if="this.active_street">
-      <div class="table-row">
-        <div class="table-cell tc-10"> Current street is {{this.active_street}} </div>
-        <div class="table-cell tc-30"> There will be buttons </div>
+      <div v-for="(house_info, house_index) in street_info" :key="house_index" class="house">
+        <House :house=house_index :house_info=house_info :street_name=active_street />
       </div>
-      <div v-for="(house_info, house_index) in street_info" :key="house_index">
-        <HouseRow :house=house_index :house_info=house_info :street_name=active_street />
-      </div>
-    </div>
-    <div v-else>
-      No street is selected
     </div>
   </div>
 </template>
 
 <script>
 import Bus from '../bus'
-import HouseRow from './HouseRow.vue'
+import House from './House.vue'
 import { common_state_store } from '../shared'
 
 export default {
   components: {
-    HouseRow
+    House
   },
 
   data: () => ({
@@ -55,3 +48,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.houses {
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>
