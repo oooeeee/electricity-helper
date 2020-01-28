@@ -130,7 +130,6 @@ export default {
 
 <style>
 .main-app {
-  width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
