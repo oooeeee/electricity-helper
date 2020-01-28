@@ -3,10 +3,10 @@
     <div class="table-row">
       <div class="table-cell tc-10"> House {{this.house}} </div>
     </div>
-    <div class="table-row" v-for="(date_info, date) in house_info" :key="date">
+    <div class="table-row" v-for="(date_info, date_index) in house_info" :key="date_index">
       <div class="table-cell tc-10">
         <div class="labels">
-          <span class="badge badge-info">{{ date }}</span>
+          <span class="badge badge-info">{{ date_info.date }}</span>
         </div>
       </div>
       <div class="table-cell tc-30" v-for="(data_value, data_type) in date_info" :key="data_type">

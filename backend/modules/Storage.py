@@ -34,7 +34,7 @@ class Storage:
 
     def get_street(self, street_name):
         assert street_name in self._data, 'Unknown street name'
-        return self._data[street_name]
+        return {house: house_info[-2:] for house, house_info in self._data[street_name].items()}
 
     def get_house(self, street_name, house):
         street_info = self.get_street(street_name)
@@ -53,7 +53,7 @@ class Storage:
         today = datetime.datetime.now().strftime('%d.%m.%Y')
         for street_info in self._data.values():
             for house_info in street_info.values():
-                house_info.setdefault(today, {})
+                house_info.append({'date': today})
         self.save_storage()
 
     def save_storage(self):
