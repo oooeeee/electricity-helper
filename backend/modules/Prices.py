@@ -27,8 +27,8 @@ class Prices:
             for price_type in self.price_types:
                 kwt = int(date_info.get(price_type) or 0)
                 delta_kwt = kwt - int(prev_date_info.get(price_type) or 0)
-                result_row[f"{price_type} KWT"] = kwt
-                result_row[f"{price_type} KWT delta"] = delta_kwt
+                result_row[f"{price_type} KWH"] = kwt
+                result_row[f"{price_type} KWH delta"] = delta_kwt
                 result_row[f"{price_type} rate"] = rate = price_info[price_type]
                 result_row[f"{price_type} price"] = price = round(delta_kwt * rate, 2)
                 total += price
