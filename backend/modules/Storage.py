@@ -17,6 +17,11 @@ class AllowedDataTypes(enum.Enum):
         return False
 
 
+class Roots:
+    STREETS = "STREETS"
+    PRICES = "PRICES"
+
+
 def get_storage_filename():
     real_data_file = os.path.join(_DIR_NAME, 'data.json')
     demo_data_file = os.path.join(_DIR_NAME, 'demo_data.json')
@@ -30,11 +35,11 @@ class Storage:
             self._data = json.load(file)
 
     def get_street_names(self):
-        return list(self._data.keys())
+        return list(self._data[Roots.STREETS].keys())
 
     def get_street(self, street_name):
-        assert street_name in self._data, 'Unknown street name'
-        return {house: house_info[-2:] for house, house_info in self._data[street_name].items()}
+        assert street_name in self._data[Roots.STREETS], 'Unknown street name'
+        return {house: house_info[-2:] for house, house_info in self._data[Roots.STREETS][street_name].items()}
 
     def get_house(self, street_name, house):
         street_info = self.get_street(street_name)
@@ -54,7 +59,7 @@ class Storage:
 
     def add_today(self):
         today = datetime.datetime.now().strftime('%d.%m.%Y')
-        for street_info in self._data.values():
+        for street_info in self._data[Roots.STREETS].values():
             for house_info in street_info.values():
                 house_info.append({'date': today})
         self.save_storage()
