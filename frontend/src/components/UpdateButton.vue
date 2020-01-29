@@ -4,18 +4,14 @@
       <div class="input-group-prepend">
         <div class="input-group-text">{{this.data_type}}</div>
       </div>
-      <input type="text" name="data_value" class="form-control" v-model="data_value_" :disabled="form_locked">
-      <span v-if="form_locked" class="input-group-btn">
-        <button type="button" class="btn btn-primary" @click.prevent="form_locked=false">Edit</button>
-      </span>
-      <span v-else class="input-group-btn">
+      <input type="number" :min="data_value" name="data_value" class="form-control" v-model="data_value_">
+      <span class="input-group-btn">
         <AsyncButton
           :url='`/storage/street/${this.street_name}/house/${this.house_name}/set/${this.date}/${this.data_type}/${this.data_value_}`'
           method='put'
           text="Update"
           :callback_success='success_edit'
         />
-        <button type="button" class="btn btn-info" @click.prevent="form_locked=true;data_value_=data_value">X</button>
       </span>
     </div>
   </div>
@@ -39,12 +35,10 @@ export default {
   data() {
     return {
       data_value_: this.data_value,
-      form_locked: true,
     };
   },
   methods: {
     success_edit() {
-      this.form_locked = true
       Bus.$emit("update_street", this.street_name, false)
     }
   },
