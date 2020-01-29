@@ -44,8 +44,11 @@ class Storage:
     def update_data(self, street_name, house, date, data_type, data):
         assert AllowedDataTypes.is_allowed(data_type), 'Not allowed data type'
         house_info = self.get_house(street_name, house)
-        assert date in house_info, 'Unknown date'
-        date_info = house_info[date]
+        for date_info in house_info:
+            if date_info['date'] == date:
+                break
+        else:
+            raise AssertionError('Unknown date')
         date_info[data_type] = data
         self.save_storage()
 
