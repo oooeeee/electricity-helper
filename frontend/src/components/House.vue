@@ -18,17 +18,17 @@
           class="row"
           :street_name="street_name"
           :house_name="house"
-          :date="house_info[1].date"
+          :date="house_info[house_info.length-1].date"
           :data_type="'DAY'"
-          :data_value="house_info[1].DAY"
+          :data_value="house_info[house_info.length-1].DAY"
         />
         <UpdateButton 
           class="row"
           :street_name="street_name"
           :house_name="house"
-          :date="house_info[1].date"
+          :date="house_info[house_info.length-1].date"
           :data_type="'NIGHT'"
-          :data_value="house_info[1].NIGHT"
+          :data_value="house_info[house_info.length-1].NIGHT"
         />
       </div>
     </div>
