@@ -91,7 +91,7 @@ export default {
       this.busy_street = false;
     },
     notification_error(message) {
-      var toast_params = {
+      let toast_params = {
         position: "top-right",
         timeout: 20000,
         closeOnClick: true,
@@ -106,7 +106,7 @@ export default {
       this.$toast.error(message, toast_params)
     },
     notification_info(message) {
-      var toast_params = {
+      let toast_params = {
         position: "top-right",
         timeout: 5000,
         closeOnClick: true,
