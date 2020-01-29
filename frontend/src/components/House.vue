@@ -1,20 +1,35 @@
 <template>
   <div v-if="show_house">
     <div v-if="edit_mode">
-      <center><h3>House {{house}}</h3></center>
-      <div class="table-row" v-for="(date_info, date_index) in house_info" :key="date_index">
-        <div class="table-cell tc-10">
-          <div class="labels">
-            <span class="badge badge-info">{{ date_info.date }}</span>
-          </div>
+      <div class="container">
+        <div class="row row-cols-3">
+          <div class="col">House {{house}}</div>
+          <div class="col">DAY</div>
+          <div class="col">NIGHT</div>
         </div>
-        <div class="table-cell tc-30" v-for="(data_value, data_type) in date_info" :key="data_type">
+        <div class="row row-cols-3" v-for="(date_info, date_index) in house_info" :key="date_index">
+          <div class="col">{{ date_info.date }}</div>
+          <div class="col">{{ date_info.DAY }}</div>
+          <div class="col">{{ date_info.NIGHT }}</div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row row-cols-2">
           <UpdateButton 
+            class="col"
             :street_name="street_name"
             :house_name="house"
-            :date="date_info.date"
-            :data_type="data_type"
-            :data_value="data_value"
+            :date="house_info[1].date"
+            :data_type="'DAY'"
+            :data_value="house_info[1].DAY"
+          />
+          <UpdateButton 
+            class="col"
+            :street_name="street_name"
+            :house_name="house"
+            :date="house_info[1].date"
+            :data_type="'NIGHT'"
+            :data_value="house_info[1].NIGHT"
           />
         </div>
       </div>

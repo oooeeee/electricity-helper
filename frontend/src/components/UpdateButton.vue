@@ -13,7 +13,7 @@
           :url='`/storage/street/${this.street_name}/house/${this.house_name}/set/${this.date}/${this.data_type}/${this.data_value_}`'
           method='put'
           text="Update"
-          :callback_success='() => {this.form_locked = true}'
+          :callback_success='success_edit'
         />
         <button type="button" class="btn btn-info" @click.prevent="form_locked=true;data_value_=data_value">X</button>
       </span>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import Bus from '../bus'
 import AsyncButton from './AsyncButton.vue'
 
 export default {
@@ -40,6 +41,12 @@ export default {
       data_value_: this.data_value,
       form_locked: true,
     };
+  },
+  methods: {
+    success_edit() {
+      this.form_locked = true
+      Bus.$emit("update_street", this.street_name, false)
+    }
   },
 }
 </script>

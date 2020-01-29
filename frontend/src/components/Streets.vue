@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="streets-container">
       <div class="dropdown">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           {{active_street?active_street:'Choose street'}}
@@ -11,7 +11,7 @@
       </div>
       <button v-if="show_back_button" type="button" class="btn btn-primary" @click.prevent="back_houses()">Back</button>
     </div>
-    <div v-if="this.active_street" class="container">
+    <div v-if="this.active_street" v-bind:class="{'streets-container': !show_back_button}">
       <div v-for="(house_info, house_index) in street_info" :key="house_index">
         <House :house=house_index :house_info=house_info :street_name=active_street />
       </div>
@@ -61,7 +61,7 @@ export default {
 </script>
 
 <style>
-.container {
+.streets-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
