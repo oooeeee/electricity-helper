@@ -1,6 +1,5 @@
 <template>
   <div class="main-app">
-    <div class="header"></div>
     <Streets/>
   </div>
 </template>
@@ -49,8 +48,6 @@ export default {
   },
 
   methods: {
-    clean_street() {
-    },
     async get_streets() {
       if (this.busy_streets) return
       this.busy_streets = true;
