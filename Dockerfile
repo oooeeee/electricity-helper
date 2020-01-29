@@ -1,6 +1,7 @@
 FROM node:13.7.0-alpine as node
 WORKDIR /root/workdir
 ADD frontend/package.json ./package.json
+ADD frontend/package-lock.json ./package-lock.json
 # install node packages
 RUN npm set progress=false && npm install
 # copy frontend source to container
