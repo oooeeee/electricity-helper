@@ -54,6 +54,7 @@ export default {
     },
     requestStreet(street) {
       this.active_street = street;
+      this.back_houses()
       Bus.$emit('update_street', this.active_street, true);
     }
   }
