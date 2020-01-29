@@ -30,9 +30,9 @@ class Prices:
                 result_row[f"{price_type} KWT"] = kwt
                 result_row[f"{price_type} KWT delta"] = delta_kwt
                 result_row[f"{price_type} rate"] = rate = price_info[price_type]
-                result_row[f"{price_type} price"] = price = delta_kwt * rate
+                result_row[f"{price_type} price"] = price = round(delta_kwt * rate, 2)
                 total += price
-            result_row["Total"] = total
+            result_row["Total"] = round(total, 2)
             prev_date_info = date_info
             header = header or list(result_row.keys())
             dicts.append(result_row)
