@@ -1,63 +1,42 @@
 from dateutil.parser import parse
 
-demo_prices = [
-    {
-        "date": "01.01.2020",
-        "DAY": 5.0,
-        "NIGHT": 2.5
-    },
-    {
-        "date": "01.07.2019",
-        "DAY": 4.0,
-        "NIGHT": 2.0
-    },
-    {
-        "date": "01.01.2019",
-        "DAY": 3.0,
-        "NIGHT": 1.5
-    }
-]
-demo_info = [
-    {
-        "DAY": "37040",
-        "NIGHT": "17244",
-        "date": "05.10.2019"
-    },
-    {
-        "DAY": "37556",
-        "NIGHT": "17382",
-        "date": "03.11.2019"
-    },
-    {
-        "DAY": "38954",
-        "NIGHT": "18068",
-        "date": "01.12.2019"
-    },
-    {
-        "DAY": "41931",
-        "NIGHT": "19502",
-        "date": "18.01.2020"
-    }
-]
-
 
 def parse_date(date):
     return parse(date, dayfirst=True)
 
 
 class Prices:
-    def __init__(self, storage):
+    def __init__(self, storage, price_types):
         self.storage = storage
+        self.price_types = price_types
 
     def get_table_with_prices(self, street_name, house):
         house_info = self.storage.get_house(street_name, house)
-        prices = self.storage.get_prices()
-        result = []
+        rates = self.storage.get_prices()
+        return self._get_table_info(house_info, rates)
+
+    def _get_table_info(self, house_info, rates):
+        dicts = []
+        header = []
+        prev_date_info = {}
         for date_info in self._order_prices_by_date(house_info):
-            price_info = self._find_first_price_by_date(prices, date_info['date'])
-            result.append(date_info, price_info)
-            # TODO: add logic
-        return house_info
+            price_info = self._find_first_price_by_date(rates, date_info['date'])
+            result_row = {'Date': date_info['date']}
+            total = 0.0
+            prev_date_info = prev_date_info or date_info
+            for price_type in self.price_types:
+                kwt = int(date_info.get(price_type) or 0)
+                delta_kwt = kwt - int(prev_date_info.get(price_type) or 0)
+                result_row[f"{price_type} KWT"] = kwt
+                result_row[f"{price_type} KWT delta"] = delta_kwt
+                result_row[f"{price_type} rate"] = rate = price_info[price_type]
+                result_row[f"{price_type} price"] = price = delta_kwt * rate
+                total += price
+            result_row["Total"] = total
+            prev_date_info = date_info
+            header = header or list(result_row.keys())
+            dicts.append(result_row)
+        return [header] + [[row[head] for head in header] for row in dicts]
 
     @staticmethod
     def _order_prices_by_date(prices):
