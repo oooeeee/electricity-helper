@@ -40,6 +40,7 @@ export default {
     Bus.$on('notification_info', (message) => this.notification_info(message))
     Bus.$on('notification_error', (message) => this.notification_error(message))
     this.get_streets()
+    this.get_datatypes()
     this.schedulers.push(setInterval(() => this.get_street(), 10000))
   },
 
@@ -67,6 +68,23 @@ export default {
         setTimeout(() => this.get_streets(), 5000);
       }
       this.busy_streets = false;
+    },
+    async get_datatypes() {
+      try {
+        const resp = await fetch(BASE_URL + "/storage/data_types")
+        if (resp.status != 200){
+          const message = `Can't get datatypes: Response code ${resp.status}: ${await resp.text()}`;
+          if (typeof Error !== "undefined") {
+            throw new Error(message);
+          }
+          throw message;
+        }
+        const dataTypes = await resp.json()
+        this.common_store.setDataTypes(dataTypes)
+      } catch (err) {
+        Bus.$emit("notification_error", `${err}`)
+        setTimeout(() => this.get_datatypes(), 5000);
+      }
     },
     async get_street(street, need_clean) {
       if (street) this.street = street;

@@ -4,11 +4,9 @@ export const common_state_store = {
   state: {
     street: {},
     streets: [],
+    dataTypes: [],
   },
-  setStreetAction (newValue) {
-    this.state.street = newValue
-  },
-  setStreetsAction (newValue) {
-    this.state.streets = newValue
-  },
+  setStreetAction (newValue) {this.state.street = newValue},
+  setStreetsAction (newValue) {this.state.streets = newValue},
+  setDataTypes (newValue){this.state.dataTypes = newValue}
 }
