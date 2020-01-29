@@ -14,24 +14,22 @@
         </div>
       </div>
       <div class="container">
-        <div class="row row-cols-2">
-          <UpdateButton 
-            class="col"
-            :street_name="street_name"
-            :house_name="house"
-            :date="house_info[1].date"
-            :data_type="'DAY'"
-            :data_value="house_info[1].DAY"
-          />
-          <UpdateButton 
-            class="col"
-            :street_name="street_name"
-            :house_name="house"
-            :date="house_info[1].date"
-            :data_type="'NIGHT'"
-            :data_value="house_info[1].NIGHT"
-          />
-        </div>
+        <UpdateButton 
+          class="row"
+          :street_name="street_name"
+          :house_name="house"
+          :date="house_info[1].date"
+          :data_type="'DAY'"
+          :data_value="house_info[1].DAY"
+        />
+        <UpdateButton 
+          class="row"
+          :street_name="street_name"
+          :house_name="house"
+          :date="house_info[1].date"
+          :data_type="'NIGHT'"
+          :data_value="house_info[1].NIGHT"
+        />
       </div>
     </div>
     <div v-else>
