@@ -1,9 +1,9 @@
 import os
 import html
 import logging
-from modules.Storage import Storage
 from flask import Flask, request, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
+from modules.Storage import Storage, AllowedDataTypes
 
 logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger('werkzeug')
@@ -18,6 +18,10 @@ def run_app():
     @app.route("/")
     def root():
         return app.send_static_file("index.html")
+
+    @app.route("/storage/data_types", methods=["GET"])
+    def get_data_types():
+        return jsonify([data_type.value for data_type in AllowedDataTypes])
 
     @app.route("/storage/streets", methods=["GET"])
     def get_street_names():
