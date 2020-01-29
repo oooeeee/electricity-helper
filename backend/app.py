@@ -1,6 +1,7 @@
 import os
 import html
 import logging
+from modules.Prices import Prices
 from flask import Flask, request, jsonify
 from werkzeug.middleware.proxy_fix import ProxyFix
 from modules.Storage import Storage, AllowedDataTypes
@@ -14,6 +15,7 @@ def run_app():
     static_folder = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'frontend', 'dist'))
     app = Flask(__name__, static_folder=static_folder, static_url_path='/static')
     storage = Storage()
+    prices = Prices(storage)
 
     @app.route("/")
     def root():
@@ -38,6 +40,10 @@ def run_app():
     @app.route("/storage/street/<street_name>/house/<house>/set/<date>/<data_type>/<data>", methods=["PUT"])
     def update_data(street_name, house, date, data_type, data):
         return jsonify(storage.update_data(street_name, house, date, data_type, data))
+
+    @app.route("/storage/street/<street_name>/house/<house>/table_with_prices", methods=["PUT"])
+    def table_with_prices(street_name, house):
+        return jsonify(prices.get_table_with_prices(street_name, house))
 
     @app.errorhandler(500)
     def internal_error(error):

@@ -46,6 +46,9 @@ class Storage:
         assert house in street_info, 'Unknown house number'
         return street_info[house]
 
+    def get_prices(self):
+        return self._data[Roots.PRICES]
+
     def update_data(self, street_name, house, date, data_type, data):
         assert AllowedDataTypes.is_allowed(data_type), 'Not allowed data type'
         house_info = self.get_house(street_name, house)
