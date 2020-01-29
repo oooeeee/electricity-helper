@@ -58,7 +58,7 @@ export default {
         const data = await resp.json()
         this.data = data;
         this.error = false;
-        if (this.callback_success) this.callback_success();
+        if (this.callback_success) this.callback_success(this.data);
       } catch (e) {
         this.data = null;
         this.error = e;
