@@ -45,7 +45,7 @@ export default {
           {
             method: this.method,
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
-            body: JSON.stringify(this.params)
+            body: this.method == 'get'? null: JSON.stringify(this.params),
           }
         )
         if (resp.status != 200){
