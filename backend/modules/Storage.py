@@ -37,12 +37,12 @@ class Storage:
     def get_street_names(self):
         return list(self._data[Roots.STREETS].keys())
 
-    def get_street(self, street_name):
+    def get_street(self, street_name, last_data_count=2):
         assert street_name in self._data[Roots.STREETS], 'Unknown street name'
-        return {house: house_info[-2:] for house, house_info in self._data[Roots.STREETS][street_name].items()}
+        return {house: house_info[-last_data_count:] for house, house_info in self._data[Roots.STREETS][street_name].items()}
 
     def get_house(self, street_name, house):
-        street_info = self.get_street(street_name)
+        street_info = self.get_street(street_name, last_data_count=60)
         assert house in street_info, 'Unknown house number'
         return street_info[house]
 
