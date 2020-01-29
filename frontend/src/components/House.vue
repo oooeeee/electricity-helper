@@ -24,6 +24,26 @@
           v-for="(data_type, data_type_index) in common_store.state.dataTypes" :key="data_type_index"
         />
       </div>
+      <br/>
+      <div v-if="additional_data.length">
+        <table class="table table-striped table-bordered table-sm table-responsive">
+          <tbody>
+            <tr v-for="(row, row_index) in additional_data" :key="row_index">
+              <td v-for="(col, col_index) in row" :key="col_index">
+                {{col}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+       </div>
+      <div v-else>
+        <AsyncButton
+          :url='`/storage/street/${this.street_name}/house/${this.house}/table_with_prices`'
+          method='get'
+          text="Get prices data"
+          :callback_success='getAdditionalData'
+        />
+      </div>
     </div>
     <div v-else>
       <button type="button" class="btn btn-primary" @click.prevent="switchToEditMode()">{{this.house}}</button>
@@ -35,9 +55,11 @@
 import Bus from '../bus'
 import { common_state_store } from '../shared'
 import UpdateButton from './UpdateButton.vue'
+import AsyncButton from './AsyncButton.vue'
 
 export default {
   components: {
+    AsyncButton,
     UpdateButton
   },
   props: {
@@ -53,13 +75,14 @@ export default {
 
   created() {
     Bus.$on('hide_houses', () => {if (!this.edit_mode) this.show_house = false})
-    Bus.$on('show_houses', () => {this.show_house = true; this.edit_mode = false})
+    Bus.$on('show_houses', () => {this.show_house = true; this.edit_mode = false; this.additional_data = [];})
   },
 
   data: () => ({
     common_store: common_state_store,
     edit_mode: false,
     show_house: true,
+    additional_data: [],
   }),
 
   methods: {
@@ -69,7 +92,10 @@ export default {
     },
     returnToCommonMode() {
       Bus.$emit("show_houses")
-    }
+    },
+    getAdditionalData(response) {
+      this.additional_data = response
+    },
   },
 }
 
