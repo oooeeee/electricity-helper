@@ -46,7 +46,7 @@
       </div>
     </div>
     <div v-else>
-      <button type="button" class="btn btn-primary" @click.prevent="switchToEditMode()">{{this.house}}</button>
+      <button type="button" class="btn" v-bind:class="{'btn-primary': has_latest_data, 'btn-warning': !has_latest_data}" @click.prevent="switchToEditMode()">{{this.house}}</button>
     </div>
   </div>
 </template>
@@ -70,6 +70,9 @@ export default {
   computed: {
     dataTypes() {
       return ['date', ...this.common_store.state.dataTypes]
+    },
+    has_latest_data(){
+      return Boolean(this.house_info[this.house_info.length-1]['DAY'])
     },
   },
 
