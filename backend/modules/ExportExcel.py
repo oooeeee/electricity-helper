@@ -1,6 +1,6 @@
 import itertools
 from openpyxl import Workbook
-from backend.modules.common import parse_date
+from backend.modules.common import parse_date, sort_houses
 
 DATA_COUNT_TO_EXPORT = 4
 
@@ -68,7 +68,7 @@ class ExportExcel:
             dates = self._add_row_dates(sheet, street_name)
             houses = self.storage.get_street(street_name, last_data_count=DATA_COUNT_TO_EXPORT)
             self._add_row_price_types(sheet, len(dates))
-            for row_index, house in enumerate(houses.keys(), start=4):  # start from 4 because in 1 - street name, in 2 - dates, in 3 - price_types
+            for row_index, house in enumerate(sort_houses(houses.keys()), start=Rows.houses_start):
                 self._add_row_house(sheet, row_index, dates, house, houses[house])
         self._remove_unknown_sheetnames(book, street_names)
         book.save("sample.xlsx")
