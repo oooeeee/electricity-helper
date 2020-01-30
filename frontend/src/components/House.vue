@@ -20,7 +20,7 @@
           :house_name="house"
           :date="house_info[house_info.length-1].date"
           :data_type="data_type"
-          :data_value="house_info[house_info.length-1][data_type]"
+          :data_value="house_info[house_info.length-1][data_type] || '0'"
           v-for="(data_type, data_type_index) in common_store.state.dataTypes" :key="data_type_index"
         />
       </div>
