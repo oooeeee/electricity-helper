@@ -32,7 +32,7 @@ def run_app():
 
     @app.route("/storage/street/<street_name>/latest", methods=["GET"])
     def get_street_latest_data(street_name):
-        return jsonify(storage.get_street(street_name))
+        return jsonify(storage.get_street_with_sorted_houses(street_name))
 
     @app.route("/storage/add_latest_date", methods=["POST"])
     def add_today():

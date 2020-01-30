@@ -1,8 +1,9 @@
 import os
 import json
 import datetime
-from .common import AllowedDataTypes, sort_house_info
+from .common import AllowedDataTypes, sort_house_info, sort_houses
 _DIR_NAME = os.path.dirname(__file__)
+LAST_DATA_COUNT = 2
 
 
 class Roots:
@@ -25,9 +26,14 @@ class Storage:
     def get_street_names(self):
         return list(self._data[Roots.STREETS].keys())
 
-    def get_street(self, street_name, last_data_count=2):
+    def get_street(self, street_name, last_data_count=None):
+        last_data_count = last_data_count or LAST_DATA_COUNT
         assert street_name in self._data[Roots.STREETS], 'Unknown street name'
         return {house: sort_house_info(house_info)[-last_data_count:] for house, house_info in self._data[Roots.STREETS][street_name].items()}
+
+    def get_street_with_sorted_houses(self, street_name, last_data_count=None):
+        houses = self.get_street(street_name, last_data_count=last_data_count)
+        return [{'house': house, "date_info": houses[house]} for house in sort_houses(houses.keys())]
 
     def get_house(self, street_name, house):
         street_info = self.get_street(street_name, last_data_count=60)

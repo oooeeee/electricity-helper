@@ -14,7 +14,7 @@
     </div>
     <div v-if="this.active_street" v-bind:class="{'streets-container': !show_back_button}">
       <div v-for="(house_info, house_index) in street_info" :key="house_index">
-        <House :house=house_index :house_info=house_info :street_name=active_street />
+        <House :house=house_info.house :house_info=house_info.date_info :street_name=active_street />
       </div>
     </div>
   </div>
