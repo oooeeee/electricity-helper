@@ -54,16 +54,23 @@ class ExportExcel:
                 value = house_dates.get(date, {}).get(price_type, '')
                 sheet.cell(column=next(column), row=row, value=value)
 
+    @staticmethod
+    def _remove_unknown_sheetnames(book, allowed_sheet_names):
+        for sheet in book.worksheets:
+            if sheet.title not in allowed_sheet_names:
+                book.remove(sheet)
+
     def export_to_excel(self):
         book = Workbook()
-        for street_name in self.storage.get_street_names():
+        street_names = self.storage.get_street_names()
+        for street_name in street_names:
             sheet = self._get_sheet_for_street(book, street_name)
             dates = self._add_row_dates(sheet, street_name)
             houses = self.storage.get_street(street_name, last_data_count=DATA_COUNT_TO_EXPORT)
             self._add_row_price_types(sheet, len(dates))
             for row_index, house in enumerate(houses.keys(), start=4):  # start from 4 because in 1 - street name, in 2 - dates, in 3 - price_types
                 self._add_row_house(sheet, row_index, dates, house, houses[house])
-
+        self._remove_unknown_sheetnames(book, street_names)
         book.save("sample.xlsx")
 
 
