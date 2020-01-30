@@ -3,7 +3,7 @@ import json
 import datetime
 from .common import AllowedDataTypes, sort_house_info, sort_houses
 _DIR_NAME = os.path.dirname(__file__)
-LAST_DATA_COUNT = 2
+LAST_DATA_COUNT = 3
 
 
 class Roots:
