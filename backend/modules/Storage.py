@@ -58,7 +58,11 @@ class Storage:
         today = datetime.datetime.now().strftime('%d.%m.%Y')
         for street_info in self._data[Roots.STREETS].values():
             for house_info in street_info.values():
-                house_info.append({'date': today})
+                for date_info in house_info:
+                    if date_info['date'] == today:
+                        break
+                else:
+                    house_info.append({'date': today})
         self.save_storage()
 
     def save_storage(self):
