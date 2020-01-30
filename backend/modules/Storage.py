@@ -1,20 +1,8 @@
 import os
 import json
-import enum
 import datetime
+from backend.modules.common import AllowedDataTypes
 _DIR_NAME = os.path.dirname(__file__)
-
-
-class AllowedDataTypes(enum.Enum):
-    DAY = 'DAY'
-    NIGHT = 'NIGHT'
-
-    @classmethod
-    def is_allowed(cls, string):
-        for item in AllowedDataTypes:
-            if item.value == string:
-                return True
-        return False
 
 
 class Roots:

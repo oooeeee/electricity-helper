@@ -1,8 +1,4 @@
-from dateutil.parser import parse
-
-
-def parse_date(date):
-    return parse(date, dayfirst=True)
+from backend.modules.common import parse_date
 
 
 class Prices:
