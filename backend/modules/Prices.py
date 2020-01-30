@@ -1,4 +1,4 @@
-from backend.modules.common import parse_date
+from .common import parse_date
 
 
 class Prices:

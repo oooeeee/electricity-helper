@@ -1,7 +1,7 @@
 import os
 import json
 import datetime
-from backend.modules.common import AllowedDataTypes, sort_house_info
+from .common import AllowedDataTypes, sort_house_info
 _DIR_NAME = os.path.dirname(__file__)
 
 

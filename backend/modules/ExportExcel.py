@@ -1,7 +1,7 @@
 import itertools
 from openpyxl import Workbook
 from tempfile import NamedTemporaryFile
-from backend.modules.common import parse_date, sort_houses
+from .common import parse_date, sort_houses
 
 DATA_COUNT_TO_EXPORT = 4
 
