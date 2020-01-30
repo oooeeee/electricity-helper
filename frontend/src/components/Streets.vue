@@ -7,6 +7,7 @@
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <a v-for="(street, street_index) in streets" :key="street_index" class="dropdown-item" href="#" @click.prevent="requestStreet(street)"> {{street}}</a>
+          <a class="dropdown-item" :href="base_url + '/storage/export.xlsx'">Export all</a>
         </div>
       </div>
       <button v-if="show_back_button" type="button" class="btn btn-primary" @click.prevent="back_houses()">Back</button>
@@ -22,7 +23,7 @@
 <script>
 import Bus from '../bus'
 import House from './House.vue'
-import { common_state_store } from '../shared'
+import { BASE_URL, common_state_store } from '../shared'
 
 export default {
   components: {
@@ -33,6 +34,7 @@ export default {
     common_store: common_state_store,
     active_street: '',
     show_back_button: false,
+    base_url: BASE_URL,
   }),
 
   computed: {
