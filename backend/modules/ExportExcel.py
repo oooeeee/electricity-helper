@@ -1,9 +1,14 @@
 import itertools
 from openpyxl import Workbook
+from openpyxl.styles import Alignment
 from tempfile import NamedTemporaryFile
 from .common import parse_date, sort_houses
 
 DATA_COUNT_TO_EXPORT = 4
+
+
+def centered(cell):
+    cell.alignment = Alignment(horizontal="center", vertical="center")
 
 
 class Rows:
@@ -28,7 +33,7 @@ class ExportExcel:
     def _get_sheet_for_street(book, street_name):
         sheet = book.create_sheet(title=street_name)
         sheet.merge_cells(start_row=Rows.street_name, start_column=1, end_row=Rows.street_name, end_column=(DATA_COUNT_TO_EXPORT * 2) + 1)
-        sheet.cell(column=1, row=Rows.street_name, value=street_name)
+        centered(sheet.cell(column=1, row=Rows.street_name, value=street_name))
         return sheet
 
     def _add_row_dates(self, sheet, street_name):
@@ -37,7 +42,7 @@ class ExportExcel:
         for column, date in enumerate(known_dates, start=0):
             column = (column * len(self.price_types) + 2)
             sheet.merge_cells(start_column=column, start_row=Rows.dates, end_column=column + 1, end_row=Rows.dates)
-            sheet.cell(column=column, row=Rows.dates, value=date)
+            centered(sheet.cell(column=column, row=Rows.dates, value=date))
         return known_dates
 
     def _add_row_price_types(self, sheet, dates_count):
