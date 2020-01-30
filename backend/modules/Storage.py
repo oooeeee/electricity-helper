@@ -1,7 +1,7 @@
 import os
 import json
 import datetime
-from backend.modules.common import AllowedDataTypes
+from backend.modules.common import AllowedDataTypes, sort_house_info
 _DIR_NAME = os.path.dirname(__file__)
 
 
@@ -27,7 +27,7 @@ class Storage:
 
     def get_street(self, street_name, last_data_count=2):
         assert street_name in self._data[Roots.STREETS], 'Unknown street name'
-        return {house: house_info[-last_data_count:] for house, house_info in self._data[Roots.STREETS][street_name].items()}
+        return {house: sort_house_info(house_info)[-last_data_count:] for house, house_info in self._data[Roots.STREETS][street_name].items()}
 
     def get_house(self, street_name, house):
         street_info = self.get_street(street_name, last_data_count=60)
