@@ -1,5 +1,6 @@
 import itertools
 from openpyxl import Workbook
+from tempfile import NamedTemporaryFile
 from backend.modules.common import parse_date, sort_houses
 
 DATA_COUNT_TO_EXPORT = 4
@@ -60,6 +61,13 @@ class ExportExcel:
             if sheet.title not in allowed_sheet_names:
                 book.remove(sheet)
 
+    @staticmethod
+    def _get_workbook_source(book):
+        with NamedTemporaryFile() as tmp:
+            book.save(tmp.name)
+            tmp.seek(0)
+            return tmp.read()
+
     def export_to_excel(self):
         book = Workbook()
         street_names = self.storage.get_street_names()
@@ -71,11 +79,13 @@ class ExportExcel:
             for row_index, house in enumerate(sort_houses(houses.keys()), start=Rows.houses_start):
                 self._add_row_house(sheet, row_index, dates, house, houses[house])
         self._remove_unknown_sheetnames(book, street_names)
-        book.save("sample.xlsx")
+        return self._get_workbook_source(book)
 
 
 if __name__ == '__main__':
     from Storage import Storage, AllowedDataTypes
     price_types = [item.value for item in AllowedDataTypes]
     exporter = ExportExcel(Storage(), price_types)
-    exporter.export_to_excel()
+    source = exporter.export_to_excel()
+    with open("sample.xlsx", 'wb') as fp:
+        fp.write(source)
