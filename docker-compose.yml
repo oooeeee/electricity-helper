@@ -2,6 +2,7 @@ version: '2'
 
 services:
   electricity:
+    restart: always
     build:
       context: ./
       dockerfile: Dockerfile
